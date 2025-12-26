@@ -11,13 +11,15 @@ export default defineNuxtConfig({
     componentDir: './components/ui'
   },
   runtimeConfig: {
-    jwtSecret: 'super-secret',
-    byondSecret: 'very-secret',
-    discordClientSecret: 'super-secret',
+    // Private keys (server-side only)
+    jwtSecret: process.env.JWT_SECRET || 'super-secret',
+    byondSecret: process.env.BYOND_SECRET || 'very-secret',
+    discordClientSecret: process.env.DISCORD_CLIENT_SECRET || 'super-secret',
     public: {
+      // Public keys (exposed to client)
       version,
-      discordClientId: '1197984072862007417',
-      origin: 'http://localhost:3000'
+      discordClientId: process.env.NUXT_PUBLIC_DISCORD_CLIENT_ID || '1197984072862007417',
+      origin: process.env.NUXT_PUBLIC_ORIGIN || 'http://localhost:3000'
     }
   }
 })
