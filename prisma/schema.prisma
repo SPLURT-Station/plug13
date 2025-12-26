@@ -1,7 +1,7 @@
 datasource db {
-  url      = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
-  provider = "postgresql"
+  url       = env("DATABASE_PRISMA_URL")
+  directUrl = env("DATABASE_URL_NON_POOLING")
+  provider  = "mysql"
 }
 
 generator client {
@@ -19,9 +19,9 @@ model User {
 }
 
 model ConnectionString {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
+  id        String   @id @default(dbgenerated("(UUID())")) @db.VarChar(36)
   value     String   @db.Char(10)
-  createdAt DateTime @default(dbgenerated("now()")) @map("created_at")
+  createdAt DateTime @default(dbgenerated("CURRENT_TIMESTAMP(3)")) @map("created_at")
   ownerId   String   @map("owner_id") @db.VarChar(20)
   deleted   Boolean  @default(false)
 
