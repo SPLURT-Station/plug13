@@ -18,8 +18,8 @@ const emit = defineEmits<{
   <Table>
     <TableHeader>
       <TableRow>
-        <TableHead class="w-24 text-center">Вкл/Выкл</TableHead>
-        <TableHead>Устройство</TableHead>
+        <TableHead class="w-24 text-center">On/Off</TableHead>
+        <TableHead>Device</TableHead>
         <TableHead class="w-16"></TableHead>
       </TableRow>
     </TableHeader>

@@ -5,7 +5,7 @@ const TEN_HOURS = 10 * 60 * 60 * 1000;
 
 export default defineEventHandler(async (event) => {
   const user = await useAuth(event);
-  
+
   const connection = await prisma.connectionString.findFirst({
     select: { value: true, createdAt: true },
     where: {

@@ -91,8 +91,8 @@ onUnmounted(() => {
   <Card class="relative">
     <template v-if="isSocketConnected">
       <CardHeader>
-        <CardTitle>Код подключения</CardTitle>
-        <CardDescription>Это код, предназначенный для подключения аккаунта игры к этому сайту</CardDescription>
+        <CardTitle>Connection Code</CardTitle>
+        <CardDescription>This is the code intended to connect the game account to this site</CardDescription>
       </CardHeader>
       <CardContent class="flex flex-row gap-2">
         <template v-if="connectionString">
@@ -103,19 +103,19 @@ onUnmounted(() => {
               <TooltipTrigger as-child>
                 <Button variant="outline" size="icon" :disabled="pending" @click="copyCode"><Copy class="w-4 h-4" /></Button>
               </TooltipTrigger>
-              <TooltipContent>Скопировать код</TooltipContent>
+              <TooltipContent>Copy code</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger as-child>
                 <Button variant="destructive" size="icon" :disabled="pending" @click="destroy"><Trash class="w-4 h-4" /></Button>
               </TooltipTrigger>
-              <TooltipContent>Удалить код</TooltipContent>
+              <TooltipContent>Delete code</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </template>
         <Button v-else class="w-full" @click="generate" :disabled="pending">
           <RefreshCw class="w-4 h-4 mr-2" :class="{'animate-spin': pending}" />
-          <span>Создать новый код</span>
+          <span>Create new code</span>
         </Button>
       </CardContent>
     </template>
@@ -123,24 +123,24 @@ onUnmounted(() => {
       <CardHeader>
         <CardTitle class="flex flex-row items-center gap-2">
           <Loader2 class="animate-spin h-4 w-4" />
-          <span>Подключение к сокету...</span>
+          <span>Connecting to socket...</span>
         </CardTitle>
-        <CardDescription>Чтобы как можно быстрее реагировать на происходящее в игре!</CardDescription>
+        <CardDescription>To react as quickly as possible to what's happening in the game!</CardDescription>
       </CardHeader>
     </template>
     <Transition name="fade-then-slide">
       <CardFooter v-if="error">
         <Alert variant="danger" class="">
           <XCircle class="h-4 w-4" />
-          <AlertTitle>Ошибка!</AlertTitle>
-          <AlertDescription>{{ error?.data?.message || error?.message || 'Неизвестная ошибка!' }}</AlertDescription>
+          <AlertTitle>Error!</AlertTitle>
+          <AlertDescription>{{ error?.data?.message || error?.message || 'Unknown error!' }}</AlertDescription>
         </Alert>
       </CardFooter>
     </Transition>
     <Transition name="fade-then-slide">
       <Alert v-if="codeCopiedShown" class="absolute top-full mt-2">
         <Check class="h-4 w-4" />
-        <span>Код скопирован!</span>
+        <span>Code copied!</span>
       </Alert>
     </Transition>
   </Card>

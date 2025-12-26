@@ -9,17 +9,17 @@ const props = defineProps<Props>();
 const deviceSettings = computed(() => getDeviceSettings(props.device));
 
 const actuatorTypes = {
-  'vibration': 'Вибрирующий',
-  'oscillation': 'Колеблющийся'
+  'vibration': 'Vibrating',
+  'oscillation': 'Oscillating'
 } as const;
 
 const emoteTypes = {
-  'front': 'Пах',
-  'back': 'Зад',
-  'chest': 'Грудь',
-  'face': 'Лицо',
-  'basic': 'Обычный',
-  'masochism': 'Мазохизм'
+  'front': 'Crotch',
+  'back': 'Back',
+  'chest': 'Chest',
+  'face': 'Face',
+  'basic': 'Basic',
+  'masochism': 'Masochism'
 } as const;
 
 </script>

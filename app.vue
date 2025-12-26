@@ -4,7 +4,7 @@ import { GithubLogoIcon } from '@radix-icons/vue';
 const metadata = {
   shortTitle: 'Plug13',
   title: 'Plug13 - SpaceStation13 + Buttplug.io',
-  description: 'Погрузитесь в увлекательный мир SpaceStation13 намного глубже, позволив Buttplug.io передавать приятные эмоции персонажа прямиком через игрушку!',
+  description: 'Dive deeper into the exciting world of SpaceStation13 by allowing Buttplug.io to transmit your character\'s pleasant emotions directly through your toy!',
   siteName: 'WetSkrell',
   image: '/favicon.png',
   url: 'https://plug13.wetskrell.ru',
@@ -12,7 +12,7 @@ const metadata = {
 } as const;
 
 useHead({
-  htmlAttrs: { class: 'dark', lang: 'ru' },
+  htmlAttrs: { class: 'dark', lang: 'en' },
   title: 'Plug13',
   link: [{ type: 'image/png', rel: 'icon', href: '/favicon.png' }],
   meta: [{ name: 'theme-color', content: metadata.themeColor }]

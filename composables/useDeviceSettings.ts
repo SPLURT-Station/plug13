@@ -1,6 +1,6 @@
 import type { ButtplugClientDevice } from "buttplug"
 
-// number - число от 0 до 200, требует деления на 100
+// number - value from 0 to 200, requires division by 100
 type ActuatorSettings = { [Property in AllowedEmote]: number};
 
 type DeviceSettings = {

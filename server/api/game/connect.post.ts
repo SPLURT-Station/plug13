@@ -6,10 +6,10 @@ const TEN_HOURS = 10 * 60 * 60 * 1000;
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  if (!body.code || !body.key) return { "error": "Неверное тело запроса. Пожалуйста, уведомьте об этом разработчика" };
+  if (!body.code || !body.key) return { "error": "Invalid request body. Please notify the developer about this" };
 
   const byondSecret = useRuntimeConfig().byondSecret;
-  if (!body.secret || body.secret !== byondSecret) return { "error": "Неверный секрет билда. Пожалуйста, уведомьте об этом разработчика." }
+  if (!body.secret || body.secret !== byondSecret) return { "error": "Invalid build secret. Please notify the developer about this." }
 
   const userConnection = await prisma.connectionString.findFirst({
     where: {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     },
     select: { owner: { select: { username: true } }, value: true }
   });
-  if (!userConnection) return { "error": "Неверный код подключения!" };
+  if (!userConnection) return { "error": "Invalid connection code!" };
 
   logDated(`${body.key} connected to the key ${userConnection.value} of user ${userConnection.owner.username}`);
 

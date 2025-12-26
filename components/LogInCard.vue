@@ -5,11 +5,11 @@ const { openOauth2Page } = useAccount();
 <template>
   <Card class="max-w-sm">
     <CardHeader>
-      <CardTitle>Вход в аккаунт</CardTitle>
-      <CardDescription>Для продолжения, нужно войти в аккаунт</CardDescription>
+      <CardTitle>Account Login</CardTitle>
+      <CardDescription>To continue, you need to log in to your account</CardDescription>
     </CardHeader>
     <CardContent>
-      <Button @click="openOauth2Page()" class="w-full">Войти через Discord</Button>
+      <Button @click="openOauth2Page()" class="w-full">Login with Discord</Button>
     </CardContent>
   </Card>
 </template>

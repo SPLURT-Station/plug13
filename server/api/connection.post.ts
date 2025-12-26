@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
   });
   if (closeToRequestConnection) throw createError({
     statusCode: 400,
-    message: "Новый код можно создать только раз в 5 минут."
+    message: "A new code can only be created once every 5 minutes."
   });
 
   const newConnection = await prisma.connectionString.create({

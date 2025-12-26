@@ -7,13 +7,13 @@ const { userAccount, pending, logOut } = useAccount();
   <Card v-if="userAccount">
     <CardHeader>
       <CardTitle class="flex flex-row items-center gap-2">
-        <div class="flex-grow">Аккаунт: <span class="font-mono">{{ userAccount.username || 'unknown' }}</span></div>
+        <div class="flex-grow">Account: <span class="font-mono">{{ userAccount.username || 'unknown' }}</span></div>
         <TooltipProvider :delay-duration="300" disableClosingTrigger>
           <Tooltip>
             <TooltipTrigger as-child>
               <Button variant="outline" size="icon" :disabled="pending" @click="logOut"><LogOut class="w-4 h-4" /></Button>
             </TooltipTrigger>
-            <TooltipContent>Выход</TooltipContent>
+            <TooltipContent>Logout</TooltipContent>
           </Tooltip>
           <ButtonDialogClearSessions />
         </TooltipProvider>

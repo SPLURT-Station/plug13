@@ -46,8 +46,8 @@ export const useButtplugControl = () => {
     for (const emoteType of allowedEmoteTypes) {
       if (!settings[emoteType]) continue;
 
-      // В настройках хранится число от 0 до 200 просто чтобы с мантиссой и
-      // её последствиями не приходилось дружиться
+      // Settings store a number from 0 to 200 just to avoid dealing with mantissa and
+      // its consequences
       const emoteStrength = clamp((settings[emoteType] / 100) * recentEmotes[emoteType], 0, 1);
       if (max > emoteStrength) continue;
 

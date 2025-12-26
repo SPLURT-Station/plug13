@@ -13,18 +13,18 @@ const { pending, resetSessions } = useAccount();
       </TooltipTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Вы уверены?</AlertDialogTitle>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            Это действие не может быть отменено. Вы выйдете из аккаунта на всех устройствах, включая это. Все сессии станут невалидны.
+            This action cannot be undone. You will be logged out of your account on all devices, including this one. All sessions will become invalid.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Отмена</AlertDialogCancel>
-          <AlertDialogAction @click="resetSessions">Завершить все сессии</AlertDialogAction>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction @click="resetSessions">End all sessions</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-    <TooltipContent>Завершить все сессии</TooltipContent>
+    <TooltipContent>End all sessions</TooltipContent>
   </Tooltip>
 </template>
 

@@ -18,7 +18,7 @@
 	if (!owner) return
 
 	if (failed_code_tries > 30)
-		error = "Слишком ошибок ввода кода"
+		error = "Too many code input errors"
 		return
 
 	pending = TRUE
@@ -40,7 +40,7 @@
 	pending = FALSE
 
 	if (response.errored || response.status_code != 200)
-		error = "Ошибка соединения с Plug13"
+		error = "Connection error with Plug13"
 		return
 
 	var/data = json_decode(response.body)
@@ -93,7 +93,7 @@
 
 	if (response.errored || FLOOR(response.status_code/100, 1) != 2) // 2xx codes
 		if (++emote_sends_failed > 10)
-			error = "Слишком много неудачных запросов"
+			error = "Too many failed requests"
 			disconnect()
 		return
 

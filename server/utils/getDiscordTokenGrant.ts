@@ -6,7 +6,7 @@ export default async (event: H3Event<EventHandlerRequest>): Promise<DiscordAcces
   const body = await readBody<{ code?: string }>(event);
   if (!body.code) throw createError({
     statusCode: 400,
-    message: "Отсутствует код авторизации"
+    message: "Authorization code is missing"
   });
 
   const discordBody = {
@@ -20,7 +20,7 @@ export default async (event: H3Event<EventHandlerRequest>): Promise<DiscordAcces
   let discordBodyArr = [];
   for (const key in discordBody)
     discordBodyArr.push(`${encodeURIComponent(key)}=${encodeURIComponent(discordBody[key as keyof typeof discordBody])}`);
-  
+
   try {
     const data = await $fetch<DiscordAccessTokenGrant>("https://discord.com/api/oauth2/token", {
       method: 'POST',
@@ -33,7 +33,7 @@ export default async (event: H3Event<EventHandlerRequest>): Promise<DiscordAcces
     console.error(e, (e as any).data);
     throw createError({
       statusCode: 400,
-      message: "Не удалось получить токен",
+      message: "Failed to get token",
       data: (e as any).data
     });
   }

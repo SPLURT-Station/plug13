@@ -13,10 +13,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     jwtSecret: 'super-secret',
     byondSecret: 'very-secret',
-    discordClientSecret: 'super-secret',
+    discordClientSecret: 'SLf5JaMDnmALHS6dEv2HyfuKvYYO7ytb',
     public: {
       version,
-      discordClientId: '1197984072862007417',
+      discordClientId: '913199226173947966',
       origin: 'http://localhost:3000'
     }
   }

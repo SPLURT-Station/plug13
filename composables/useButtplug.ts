@@ -12,7 +12,7 @@ export const useButtplug = () => {
     connected.value = client.value.connected;
     isScanning.value = client.value.isScanning;
     devices.value = [];
-    error.value = new Error('Соединение с Intiface Central потеряно');
+    error.value = new Error('Connection to Intiface Central lost');
   });
   client.value.on('deviceadded', () => devices.value = client.value.devices);
   client.value.on('deviceremoved', () => devices.value = client.value.devices);
@@ -26,7 +26,7 @@ export const useButtplug = () => {
     setPending();
     const connector = new ButtplugBrowserWebsocketClientConnector(address || "ws://127.0.0.1:12345/buttplug");
     try { await client.value.connect(connector); }
-    catch (e) { error.value = createSimpleError(e as any, 'Не удалось подключиться к Intiface Central'); }
+    catch (e) { error.value = createSimpleError(e as any, 'Failed to connect to Intiface Central'); }
     // await new Promise(a => setTimeout(a, 2000));
     resetPending();
     connected.value = client.value.connected;

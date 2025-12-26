@@ -1,6 +1,6 @@
 <table>
 <tr><td align="center" width="2000"><b>
-<a href="README-RU.md">Перейти на русскую версию README</a>
+<a href="README-RU.md">Go to Russian README version</a>
 </b></td></tr>
 </table>
 

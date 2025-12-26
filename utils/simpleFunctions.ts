@@ -32,5 +32,5 @@ export function randomString(alphabet: RndStrAlphabet, length: number) {
 
 export const clamp = (value: number, min: number, max: number) => Math.max(Math.min(value, max), min);
 
-export const createSimpleError = (e: any, noErrorText='Неизвестная ошибка') => (e instanceof Error) ? e : Error((e as any)?.message || noErrorText);
+export const createSimpleError = (e: any, noErrorText='Unknown error') => (e instanceof Error) ? e : Error((e as any)?.message || noErrorText);
 export const createFetchError = (e: any) => (e instanceof FetchError) ? e : createSimpleError(e);

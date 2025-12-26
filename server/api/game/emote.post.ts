@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
     message: "Invalid strength"
   });
 
-  // На вход мы должны получить число [1-100], а на выходе дать (0-1]
+  // We should receive a number [1-100] as input, and output (0-1]
   const strength = Math.floor(body.strength) / 100;
 
   if (strength <= 0 || strength > 1) return createError({
@@ -44,10 +44,10 @@ export default defineEventHandler(async (event) => {
     message: "Invalid duration"
   });
 
-  const duration = Math.floor(body.duration) * 100; // Конвертация из децисекунд в миллисекунды
+  const duration = Math.floor(body.duration) * 100; // Conversion from deciseconds to milliseconds
 
-  // Клиент в любом случае обрежет меньше, чем максимум здесь, если нужно
-  // Здесь мы отправляем назад только с тотальным нонсенсом
+  // Client will clamp to less than maximum here if needed
+  // Here we only send back total nonsense
   if (duration <= 0 || duration > 15000) return createError({
     statusCode: 400,
     message: "Duration is too low or too big"

@@ -60,8 +60,8 @@ export default defineEventHandler((event) => {
         socket.join(connection.value);
         socket.emit("connection-string", { value: connection.value, createdAt: connection.createdAt });
 
-        // Если этот таймаут доживёт, то он кикнет как положено
-        // Если не доживёт - в любом случае строчка будет запрошена вновь
+        // If this timeout survives, it will kick as expected
+        // If it doesn't survive - the connection string will be requested again anyway
         setTimeout(() => {
           socket.connected && socket.leave(connection.value);
           socket.emit("connection-string", null);

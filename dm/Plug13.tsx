@@ -31,7 +31,7 @@ export const Plug13 = (props, context) => {
       resizable>
       <Window.Content scrollable={false}>
         { !data.is_connected ? (
-          <Section title="Подключение" fill>
+          <Section title="Connection" fill>
             <Stack direction="column" justify="center" align="center" fill>
               { data.error ? (
                 <Stack.Item mb={1}>
@@ -53,19 +53,19 @@ export const Plug13 = (props, context) => {
                   icon={data.pending ? "spinner" : "bolt"}
                   iconSpin={data.pending}
                   disabled={data.pending || !validateCode(code)}
-                  content="Подключиться"
+                  content="Connect"
                   onClick={() => act('connect', { code })} />
               </Stack.Item>
             </Stack>
           </Section>
         ) : (
-          <Section title="Статус" fill buttons={<Button icon="times" onClick={() => act('disconnect')}>Отключиться</Button>}>
+          <Section title="Status" fill buttons={<Button icon="times" onClick={() => act('disconnect')}>Disconnect</Button>}>
             <Stack direction="column" justify="center" align="center" fill>
               <Stack.Item>
-                <span>Подключен к аккаунту </span>
+                <span>Connected to account </span>
                 <b>{ data.username }</b>
               </Stack.Item>
-              <Stack.Item mt={1} fontSize={0.9} style={{ 'font-style': 'italic' }}>(Это окошко можно закрыть)</Stack.Item>
+              <Stack.Item mt={1} fontSize={0.9} style={{ 'font-style': 'italic' }}>(This window can be closed)</Stack.Item>
             </Stack>
           </Section>
         ) }
