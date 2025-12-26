@@ -5,9 +5,9 @@ const metadata = {
   shortTitle: 'Plug13',
   title: 'Plug13 - SpaceStation13 + Buttplug.io',
   description: 'Dive deeper into the exciting world of SpaceStation13 by allowing Buttplug.io to transmit your character\'s pleasant emotions directly through your toy!',
-  siteName: 'WetSkrell',
+  siteName: 'S.P.L.U.R.T.',
   image: '/favicon.png',
-  url: 'https://plug13.wetskrell.ru',
+  url: 'https://plug13.splurt.space',
   themeColor: '#C93152'
 } as const;
 
@@ -64,7 +64,7 @@ onMounted(() => {
       class="fixed bottom-0 left-0 p-2 border-t border-r rounded-tr-xl transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
       target="_blank"
       referrerpolicy="no-referrer"
-      href="https://github.com/SuhEugene/plug13">
+      href="https://github.com/SPLURT-Station/plug13">
       <GithubLogoIcon class="w-4 h-4" />
     </a>
   </div>
