@@ -12,9 +12,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     // Private keys (server-side only)
-    jwtSecret: process.env.JWT_SECRET || 'super-secret',
-    byondSecret: process.env.BYOND_SECRET || 'very-secret',
-    discordClientSecret: process.env.DISCORD_CLIENT_SECRET || 'super-secret',
+    jwtSecret: process.env.NUXT_JWT_SECRET || 'super-secret',
+    byondSecret: process.env.NUXT_BYOND_SECRET || 'very-secret',
+    discordClientSecret: process.env.NUXT_DISCORD_CLIENT_SECRET || 'super-secret',
     public: {
       // Public keys (exposed to client)
       version,
