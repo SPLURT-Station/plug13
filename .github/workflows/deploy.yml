@@ -31,7 +31,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
-          script: source .bashrc; make redeploy
+          script: |
+              source .bashrc
+              cd ~/plug13
+              make redeploy
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@v2
