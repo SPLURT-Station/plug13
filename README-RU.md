@@ -27,6 +27,7 @@
   - [Web - Короткое объяснение](#web---короткое-объяснение)
   - [Web - Длинное объяснение](#web---длинное-объяснение)
     - [Запуск в Docker](#запуск-в-docker)
+    - [Docker Compose](#docker-compose)
     - [Нативный запуск](#нативный-запуск)
 
 </details></td></tr>
@@ -130,7 +131,7 @@ node ./server/index.mjs
 1. Установи [Docker](https://docs.docker.com/engine/install/)
 2. Клонируй репозиторий:
 ```bash
-git clone https://github.com/SuhEugene/plug13.git
+git clone https://github.com/SPLURT-Station/plug13.git
 cd plug13
 ```
 
@@ -156,6 +157,25 @@ docker run -d -p 3000:3000 plug13
 
 Сервер будет доступен по адресу `http://localhost:3000`
 
+#### Docker Compose
+
+[`docker-compose.yml`](docker-compose.yml): скопируй [`.env.example`](.env.example) в `.env` или задай переменные в блоке `environment` в compose.
+
+```bash
+cp .env.example .env
+docker compose up -d --build
+```
+
+Опционально Postgres: профиль `db`, см. комментарии в `docker-compose.yml`.
+
+#### CI: GitHub Actions → GHCR → Dokploy (Docker Compose)
+
+В репозитории есть [`.github/workflows/docker-build-dokploy.yml`](.github/workflows/docker-build-dokploy.yml). При пуше в `main`: сборка образа, публикация в **GHCR** (`ghcr.io/splurt-station/plug13`, теги `latest` и SHA), затем **POST** на webhook Compose в Dokploy.
+
+**Секрет репозитория:** `DOKPLOY_COMPOSE_WEBHOOK_URL` — URL из Dokploy → Docker Compose → **Deployments** (например `https://.../api/deploy/compose/<id>`). Без секрета образ всё равно публикуется, триггер Dokploy пропускается.
+
+В Compose в Dokploy укажи тот же образ, например `image: ghcr.io/splurt-station/plug13:latest` (путь в нижнем регистре). Подробнее: [Dokploy auto-deploy](https://docs.dokploy.com/docs/core/auto-deploy).
+
 #### Нативный запуск
 
 1. Установи [Node.js](https://nodejs.org/en/download/) и [pnpm](https://pnpm.io/)
@@ -168,7 +188,7 @@ corepack enable pnpm
 
 2. Склонируй репозиторий:
 ```bash
-git clone https://github.com/SuhEugene/plug13.git
+git clone https://github.com/SPLURT-Station/plug13.git
 cd plug13
 ```
 

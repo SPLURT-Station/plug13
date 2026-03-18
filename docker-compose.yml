@@ -1,0 +1,65 @@
+# Deploy Plug13 with Docker Compose.
+#
+# 1. Copy .env.example → .env and set real values (secrets, DB URLs, public origin).
+# 2. Optional: override any variable below under `environment` (inline or ${VAR} from shell).
+# 3. Run: docker compose up -d --build
+#
+# Image: omit `build` and set `image:` to e.g. ghcr.io/splurt-station/plug13:latest for registry deploys.
+
+name: plug13
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: plug13:local
+    restart: unless-stopped
+    ports:
+      - "${PLUG13_HTTP_PORT:-3000}:3000"
+    env_file:
+      # Primary: all keys from .env.example — copy to `.env` and edit.
+      - .env
+    environment:
+      # Required inside Docker so the published port works
+      HOST: "0.0.0.0"
+      PORT: "3000"
+
+      # --- Same keys as .env.example (values from `.env` unless you override here) ---
+      NUXT_JWT_SECRET: ${NUXT_JWT_SECRET}
+      NUXT_BYOND_SECRET: ${NUXT_BYOND_SECRET}
+      NUXT_DISCORD_CLIENT_SECRET: ${NUXT_DISCORD_CLIENT_SECRET}
+      NUXT_PUBLIC_DISCORD_CLIENT_ID: ${NUXT_PUBLIC_DISCORD_CLIENT_ID}
+      NUXT_PUBLIC_ORIGIN: ${NUXT_PUBLIC_ORIGIN}
+      POSTGRES_PRISMA_URL: ${POSTGRES_PRISMA_URL}
+      POSTGRES_URL_NON_POOLING: ${POSTGRES_URL_NON_POOLING}
+
+      # Examples of manual overrides (uncomment and set, or use extra env files):
+      # NUXT_PUBLIC_ORIGIN: "https://plug13.example.com"
+      # NUXT_JWT_SECRET: "your-secret-here"
+
+  # Optional local PostgreSQL — use profile `db` and point both POSTGRES_* URLs at this service.
+  # Example .env when using this profile:
+  #   POSTGRES_PRISMA_URL=postgresql://plug13:YOUR_PASSWORD@postgres:5432/plug13?connection_limit=10
+  #   POSTGRES_URL_NON_POOLING=postgresql://plug13:YOUR_PASSWORD@postgres:5432/plug13
+  postgres:
+    profiles: [db]
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-plug13}
+      # Change when using profile `db` (default is dev-only)
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-plug13_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-plug13}
+    volumes:
+      - plug13_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_EXPOSE_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  plug13_postgres_data:

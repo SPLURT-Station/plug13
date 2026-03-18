@@ -27,6 +27,7 @@ Implemented using [Nuxt 3](https://nuxt.com/), [Socket.IO](https://socket.io/) a
   - [Web - Short explanation](#web---short-explanation)
   - [Web - Detailed explanation](#web---detailed-explanation)
     - [Run in Docker](#run-in-docker)
+    - [Docker Compose](#docker-compose)
     - [Run natively](#run-natively)
 
 </details></td></tr>
@@ -130,7 +131,7 @@ node ./server/index.mjs
 1. Install [Docker](https://docs.docker.com/engine/install/)
 2. Clone this repo:
 ```bash
-git clone https://github.com/SuhEugene/plug13.git
+git clone https://github.com/SPLURT-Station/plug13.git
 cd plug13
 ```
 
@@ -156,6 +157,48 @@ docker run -d -p 3000:3000 plug13
 
 Server will be available on `http://localhost:3000`
 
+#### Docker Compose
+
+[`docker-compose.yml`](docker-compose.yml) runs the same image as above. Copy [`.env.example`](.env.example) to `.env` and set every variable there, **or** override keys in the compose `environment` block (see comments in the file).
+
+```bash
+cp .env.example .env
+# edit .env
+docker compose up -d --build
+```
+
+- **`PLUG13_HTTP_PORT`** — host port (default `3000`).
+- **Registry image:** comment out `build:` and set `image: ghcr.io/splurt-station/plug13:latest` (or your fork).
+- **Optional Postgres:** add `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` to `.env`, set both `POSTGRES_*_URL` values to `postgresql://USER:PASSWORD@postgres:5432/DB` (see comments in compose), then:
+
+  `docker compose --profile db up -d`
+
+#### CI: GitHub Actions → GHCR → Dokploy (Docker Compose)
+
+This repo includes [`.github/workflows/docker-build-dokploy.yml`](.github/workflows/docker-build-dokploy.yml). On every push to `main` it:
+
+1. Builds the image from the root [`Dockerfile`](Dockerfile) and pushes to **GitHub Container Registry** (`ghcr.io/splurt-station/plug13` for this repo), tags: `latest` and short Git SHA.
+2. **POST**s to your Dokploy **Docker Compose** webhook so the stack redeploys and pulls the new image.
+
+**Repository secret**
+
+| Secret | Description |
+|--------|-------------|
+| `DOKPLOY_COMPOSE_WEBHOOK_URL` | Full webhook URL from Dokploy → your **Docker Compose** service → **Deployments** (e.g. `https://your-dokploy/api/deploy/compose/<id>`). If omitted, the workflow still builds and pushes; only the trigger step is skipped. |
+
+**Dokploy Compose file** (created in the Dokploy app) should reference the same image the workflow pushes, e.g.:
+
+```yaml
+services:
+  app:
+    image: ghcr.io/splurt-station/plug13:latest
+    # env, ports, networks — set in Dokploy as usual
+```
+
+Forks use their own `ghcr.io/<owner>/plug13` path (see the workflow log after push). For **private** images, configure registry credentials in Dokploy so the host can pull from GHCR.
+
+Per [Dokploy auto-deploy docs](https://docs.dokploy.com/docs/core/auto-deploy), Docker-based flows expect the **pushed tag** to match what the Compose service uses (e.g. `latest`). You can instead use **API** deploy (`POST /api/application.deploy` with `x-api-key`) for single applications; Compose stacks use the webhook URL pattern above.
+
 #### Run natively
 
 1. Install [Node.js](https://nodejs.org/en/download/) and [pnpm](https://pnpm.io/)
@@ -168,7 +211,7 @@ corepack enable pnpm
 
 2. Clone this repo:
 ```bash
-git clone https://github.com/SuhEugene/plug13.git
+git clone https://github.com/SPLURT-Station/plug13.git
 cd plug13
 ```
 
