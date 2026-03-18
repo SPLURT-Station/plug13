@@ -39,13 +39,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Every run pushes :latest (what Dokploy / compose usually pull) plus immutable :<sha>.
       - name: Docker metadata (tags)
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ steps.image.outputs.name }}
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=raw,value=latest
             type=sha
 
       - name: Build and push
