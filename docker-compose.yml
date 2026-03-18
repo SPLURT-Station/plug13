@@ -16,14 +16,14 @@ services:
     image: plug13:local
     restart: unless-stopped
     ports:
-      - "${PLUG13_HTTP_PORT:-3000}:3000"
+      - "${PLUG13_HTTP_PORT:-4000}:4000"
     env_file:
       # Primary: all keys from .env.example — copy to `.env` and edit.
       - .env
     environment:
       # Required inside Docker so the published port works
       HOST: "0.0.0.0"
-      PORT: "3000"
+      PORT: "4000"
 
       # --- Same keys as .env.example (values from `.env` unless you override here) ---
       NUXT_JWT_SECRET: ${NUXT_JWT_SECRET}
