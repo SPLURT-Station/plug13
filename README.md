@@ -180,11 +180,13 @@ This repo includes [`.github/workflows/docker-build-dokploy.yml`](.github/workfl
 1. Builds the image from the root [`Dockerfile`](Dockerfile) and pushes to **GitHub Container Registry** (`ghcr.io/splurt-station/plug13` for this repo), tags: `latest` and short Git SHA.
 2. **POST**s to your Dokploy **Docker Compose** webhook so the stack redeploys and pulls the new image.
 
-**Repository secret**
+**Secrets (GitHub → Settings → Environments → `production`)**
+
+The workflow runs against the **`production`** environment so you can use environment secrets and protection rules (required reviewers, wait timers, branch limits).
 
 | Secret | Description |
 |--------|-------------|
-| `DOKPLOY_COMPOSE_WEBHOOK_URL` | Full webhook URL from Dokploy → your **Docker Compose** service → **Deployments** (e.g. `https://your-dokploy/api/deploy/compose/<id>`). If omitted, the workflow still builds and pushes; only the trigger step is skipped. |
+| `DOKPLOY_COMPOSE_WEBHOOK_URL` | Full webhook URL from Dokploy → **Docker Compose** → **Deployments**. Repository secrets still work; prefer storing this on the **production** environment. If omitted, the image is still pushed; the Dokploy trigger step is skipped. |
 
 **Dokploy Compose file** (created in the Dokploy app) should reference the same image the workflow pushes, e.g.:
 

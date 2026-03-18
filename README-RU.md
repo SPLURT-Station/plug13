@@ -172,7 +172,7 @@ docker compose up -d --build
 
 В репозитории есть [`.github/workflows/docker-build-dokploy.yml`](.github/workflows/docker-build-dokploy.yml). При пуше в `main`: сборка образа, публикация в **GHCR** (`ghcr.io/splurt-station/plug13`, теги `latest` и SHA), затем **POST** на webhook Compose в Dokploy.
 
-**Секрет репозитория:** `DOKPLOY_COMPOSE_WEBHOOK_URL` — URL из Dokploy → Docker Compose → **Deployments** (например `https://.../api/deploy/compose/<id>`). Без секрета образ всё равно публикуется, триггер Dokploy пропускается.
+**Секреты в окружении GitHub `production`:** `DOKPLOY_COMPOSE_WEBHOOK_URL` (или секрет репозитория). Workflow привязан к **production** для правил деплоя. — URL из Dokploy → Docker Compose → **Deployments** (например `https://.../api/deploy/compose/<id>`). Без секрета образ всё равно публикуется, триггер Dokploy пропускается.
 
 В Compose в Dokploy укажи тот же образ, например `image: ghcr.io/splurt-station/plug13:latest` (путь в нижнем регистре). Подробнее: [Dokploy auto-deploy](https://docs.dokploy.com/docs/core/auto-deploy).
 

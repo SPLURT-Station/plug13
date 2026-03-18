@@ -16,6 +16,7 @@ concurrency:
 jobs:
   build-push-trigger:
     runs-on: ubuntu-latest
+    environment: Production
     permissions:
       contents: read
       packages: write
